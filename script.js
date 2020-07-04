@@ -17,7 +17,15 @@ jQuery(function ($) {
       "https://5efab74180d8170016f7588e.mockapi.io/playlist/tracks",
       function (tracks) {
         var index = 0,
-        playing = true;
+        playing = false;
+        if(tracks){
+          $("#npTitle").text(tracks[0].track)
+          $("#npArtist").text(tracks[0].artist)    
+            var src1 = tracks[0].albumCover;
+            $("#npCover").attr("src", src1);
+            var src2 = tracks[0].file;
+            $("#audio1").attr("src", src2);
+        }
           var buildPlaylist = $.each(tracks, function (key, value) {
             var trackNumber = value.id,
               trackName = value.track,
@@ -25,25 +33,8 @@ jQuery(function ($) {
               Cover = value.albumCover;
 
             $("#plList").append(
-              '<li> \
-                    <div class="plItem"> \
-                        <span class="plNum">' +
-                trackNumber +
-                '.</span> \
-                        <span class="plCover" > <img src=' +
-                Cover +
-                ' width=30px height=30px > </span> \
-                        <span class="plTitle">' +
-                trackName +
-                ' </span> \
-                        <span class="plArtist">' +
-                artist +
-                " </span> \
-                    </div> \
-                </li>"
+              `<li>                     <div class="plItem">                         <span class="plNum">${trackNumber}.</span>                         <span class="plCover" > <img src=${Cover} width=30px height=30px > </span>                         <span class="plTitle">${trackName} </span>                         <span class="plArtist">${artist} </span>                     </div>                 </li>`
             );
-            
-            
           }),
           
           trackCount = tracks.length,
@@ -72,7 +63,6 @@ jQuery(function ($) {
               }
             })
             .get(0),
-            
           btnPrev = $("#btnPrev").on("click", function () {
             if (index - 1 > -1) {
               index--;
