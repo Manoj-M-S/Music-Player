@@ -16,9 +16,9 @@ jQuery(function ($) {
     $.getJSON(
       "https://5efab74180d8170016f7588e.mockapi.io/playlist/tracks",
       function (tracks) {
-        var index = 1,
-          playing = false,
-          buildPlaylist = $.each(tracks, function (key, value) {
+        var index = 0,
+        playing = true;
+          var buildPlaylist = $.each(tracks, function (key, value) {
             var trackNumber = value.id,
               trackName = value.track,
               artist = value.artist,
@@ -42,7 +42,10 @@ jQuery(function ($) {
                     </div> \
                 </li>"
             );
+            
+            
           }),
+          
           trackCount = tracks.length,
           npAction = $("#npAction"),
           npTitle = $("#npTitle"),
@@ -69,6 +72,7 @@ jQuery(function ($) {
               }
             })
             .get(0),
+            
           btnPrev = $("#btnPrev").on("click", function () {
             if (index - 1 > -1) {
               index--;
@@ -110,7 +114,7 @@ jQuery(function ($) {
           }),
           li = $("#plList li").on("click", function () {
             var id = parseInt($(this).index());
-            if (id !== index) {
+            if (id === index) {
               playTrack(id);
               console.log(id);
             }
@@ -132,8 +136,6 @@ jQuery(function ($) {
           };
       }
     );
-
-    loadTrack(index);
   } else {
     $(".column").addClass("hidden");
     var noSupport = $("#audio1").text();
