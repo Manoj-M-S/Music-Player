@@ -18,14 +18,14 @@ jQuery(function ($) {
       function (tracks) {
         var index = 0,
         playing = false;
-        if(tracks){
-          $("#npTitle").text(tracks[0].track)
-          $("#npArtist").text(tracks[0].artist)    
-            var src1 = tracks[0].albumCover;
-            $("#npCover").attr("src", src1);
-            var src2 = tracks[0].file;
-            $("#audio1").attr("src", src2);
-        }
+        
+          
+        $("#npTitle").text(tracks[0].track)
+        $("#npArtist").text(tracks[0].artist)    
+          var src1 = tracks[0].albumCover;
+          $("#npCover").attr("src", src1);
+          var src2 = tracks[0].file;
+          $("#audio1").attr("src", src2);
           var buildPlaylist = $.each(tracks, function (key, value) {
             var trackNumber = value.id,
               trackName = value.track,
@@ -104,7 +104,7 @@ jQuery(function ($) {
           }),
           li = $("#plList li").on("click", function () {
             var id = parseInt($(this).index());
-            if (id === index) {
+            if (id !== index) {
               playTrack(id);
               console.log(id);
             }
